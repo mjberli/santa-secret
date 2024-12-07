@@ -109,9 +109,11 @@ export default function SantaChat() {
     <Card className="w-full  mx-auto bg-white shadow-xl border-4 border-red-600 rounded-xl overflow-hidden">
       <CardHeader className="bg-green-600 p-6">
         <CardTitle className="text-2xl font-bold text-white flex items-center justify-center flex-col gap-4">
-          <div className="flex items-center">
+          <div className="flex items-center justify-center text-center">
             <Bell className="mr-2 animate-bounce" />
-            Chat with Santa and reveal the secret word!
+            <span className="inline-block">
+              Chat with Santa and reveal the secret word!
+            </span>
             <Bell className="ml-2 animate-bounce" />
           </div>
           <div className="w-full flex flex-col items-center">

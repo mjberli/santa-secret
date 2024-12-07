@@ -15,7 +15,7 @@ export default function SantaChat() {
   const [input, setInput] = useState('')
   const [secret, setSecret] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [encryptedSecret, setEncryptedSecret] = useState('')
+  const [santasSecret, setSantasSecret] = useState('')
   const chatRef = useRef<HTMLDivElement>(null)
   const [showDetails, setShowDetails] = useState(false)
   const [threadId, setThreadId] = useState<string | null>(null)
@@ -82,7 +82,7 @@ export default function SantaChat() {
       if (!response.ok) throw new Error('Failed to check secret')
 
       const data = await response.json()
-      setEncryptedSecret(data.message)
+      setSantasSecret(data.message)
 
       if (data.message.startsWith('Congratulations')) {
         fireConfetti()
@@ -90,7 +90,7 @@ export default function SantaChat() {
       }
     } catch (error) {
       console.error('Error:', error)
-      setEncryptedSecret('Error checking secret')
+      setSantasSecret('Error checking secret')
     }
   }
 
@@ -217,12 +217,15 @@ export default function SantaChat() {
             <Gift className="mr-2 h-4 w-4" /> Check
           </Button>
         </div>
-        {encryptedSecret && (
+        {santasSecret && (
           <div className="text-center text-sm text-gray-600 bg-yellow-100 p-2 rounded-lg animate-pulse">
-            {encryptedSecret.startsWith('Oops!') ? '❌ ' : '✅ '}
-            {encryptedSecret}
+            {santasSecret.startsWith('Oops!') ? '❌ ' : '✅ '}
+            {santasSecret}
           </div>
         )}
+        <div className="text-center text-xs text-gray-500 bg-blue-50 p-2 rounded-lg">
+          ℹ️ The app does not store any chat data. All inputs are directly passed to the OpenAI API. Public repository on <a href="https://github.com/mjberli/santa-secret" className="underline hover:text-blue-600">Github</a>.
+        </div>
       </CardFooter>
     </Card>
   )

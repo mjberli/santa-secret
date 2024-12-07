@@ -17,33 +17,33 @@ Ever wanted to chat with Santa himself? Well, now you can! This jolly applicatio
 
 ## 🛠️ Setup (Don't Worry, The Elves Made it Easy)
 
-First, clone this repository faster than Rudolph on energy drinks:
+1. First, clone this repository faster than Rudolph on energy drinks:
 ```bash
 git clone https://github.com/your-username/santa-secret-chat.git
 ```
 
-Install dependencies (just like stuffing stockings):
+2. Install dependencies (just like stuffing stockings):
 ```bash
 npm install
 # or
 yarn install
 ```
 
-Create a .env file (Santa's nice list):
+3. Create a .env file (Santa's nice list):
 ```bash
 OPENAI_API_KEY=your_openai_key_here
 ASSISTANT_ID=your_assistant_id_here
 SECRET_WORD=santas_secret_here
 ```
 
-Run the development server (like starting the sleigh):
+4. Run the development server (like starting the sleigh):
 ```bash
 npm run dev
 # or
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) and start chatting with Santa! 🎅
+5. Open [http://localhost:3000](http://localhost:3000) and start chatting with Santa! 🎅
 
 ## 🎮 How to Play
 

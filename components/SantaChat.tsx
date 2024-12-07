@@ -8,6 +8,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Bell, Gift, Send } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import { fireConfetti } from '@/lib/confetti'
 
 export default function SantaChat() {
   const [messages, setMessages] = useState<{ role: string; content: string }[]>([])
@@ -84,6 +85,7 @@ export default function SantaChat() {
       setEncryptedSecret(data.message)
 
       if (data.message.startsWith('Congratulations')) {
+        fireConfetti()
         window.dispatchEvent(new CustomEvent('secretFound'))
       }
     } catch (error) {
@@ -95,7 +97,11 @@ export default function SantaChat() {
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
-      sendMessage()
+      if (e.currentTarget.id === 'message-input') {
+        sendMessage()
+      } else if (e.currentTarget.id === 'secret-input') {
+        checkSecret()
+      }
     }
   }
 
@@ -105,7 +111,7 @@ export default function SantaChat() {
         <CardTitle className="text-2xl font-bold text-white flex items-center justify-center flex-col gap-4">
           <div className="flex items-center">
             <Bell className="mr-2 animate-bounce" />
-            Chat with Santa and reveal his secret!
+            Chat with Santa and reveal the secret word!
             <Bell className="ml-2 animate-bounce" />
           </div>
           <div className="w-full flex flex-col items-center">
@@ -122,7 +128,7 @@ export default function SantaChat() {
               ${showDetails ? 'h-auto opacity-100' : 'h-0 opacity-0 overflow-hidden'}
             `}>
               <div className="space-y-1">
-                Chat with Santa to get hints about his secret German word. The assistant is running on GPT-4o-mini, this is the system prompt:
+                Chat with Santa to get hints about the secret German word. The assistant is running on GPT-4o-mini, this is the system prompt:
                 <pre className="text-xs mt-2 bg-white/10 p-2 rounded-md whitespace-pre-wrap break-words">
                   Act as Santa Claus and respond to any question with a festive and jovial tone.
                   You should embody the persona of Santa Claus, using language and expressions that reflect his character.
@@ -182,6 +188,7 @@ export default function SantaChat() {
       <CardFooter className="flex flex-col gap-4 bg-green-100 p-4">
         <div className="flex w-full items-center space-x-2">
           <Input
+            id="message-input"
             type="text"
             placeholder="Type your message..."
             value={input}
@@ -196,10 +203,12 @@ export default function SantaChat() {
         </div>
         <div className="flex w-full items-center space-x-2">
           <Input
+            id="secret-input"
             type="text"
             placeholder="Enter the secret..."
             value={secret}
             onChange={(e) => setSecret(e.target.value)}
+            onKeyPress={handleKeyPress}
             className="border-2 border-red-400 focus:border-green-600"
           />
           <Button onClick={checkSecret} className="bg-green-500 hover:bg-green-600">

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import SantaChat from '../components/SantaChat'
-import { Snowflake, Github } from 'lucide-react'
+import { Snowflake, Github, Linkedin } from 'lucide-react'
 
 export default function Home() {
   const [mounted, setMounted] = useState(false)
@@ -38,7 +38,7 @@ export default function Home() {
         <SantaChat />
       </div>
       <footer className="mt-8 text-center text-white">
-        <p>Made with ❤️ by Santa's Elves | Powered by Next.js 15 🚀 | 
+        <p>Made with ❤️ by Santa's Elves | 
           <a 
             href="https://github.com/mjberli/santa-secret" 
             rel="noopener noreferrer"
@@ -46,6 +46,14 @@ export default function Home() {
           >
             <Github className="w-4 h-4 ml-1 mr-1" />
             GitHub
+          </a> | 
+          <a 
+            href="https://www.linkedin.com/in/michaeljberli/" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center hover:text-yellow-300 transition-colors"
+          >
+            <Linkedin className="w-4 h-4 ml-1 mr-1" />
+            LinkedIn
           </a>
         </p>
         <Snowflake className="inline-block ml-2 animate-spin" />

@@ -1,5 +1,7 @@
 import OpenAI from 'openai'
 
+export const maxDuration = 30; // This function can run for a maximum of 30 seconds
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',
 })

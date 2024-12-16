@@ -19,6 +19,7 @@ export default function SantaChat() {
   const chatRef = useRef<HTMLDivElement>(null)
   const [showDetails, setShowDetails] = useState(false)
   const [threadId, setThreadId] = useState<string | null>(null)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   useEffect(() => {
     if (chatRef.current) {
@@ -41,7 +42,7 @@ export default function SantaChat() {
 
   const sendMessage = async () => {
     if (input.trim() === '') return
-
+    setErrorMessage(null)
     setIsLoading(true)
     setMessages(prev => [...prev, { role: 'user', content: input }])
     setInput('')
@@ -66,6 +67,7 @@ export default function SantaChat() {
       }
     } catch (error) {
       console.error('Error:', error)
+      setErrorMessage('Talking to Santa failed. Please try again later.')
     } finally {
       setIsLoading(false)
     }
@@ -198,11 +200,17 @@ export default function SantaChat() {
             onKeyPress={handleKeyPress}
             disabled={isLoading}
             className="border-2 border-red-400 focus:border-green-600"
+            autoFocus
           />
           <Button onClick={sendMessage} disabled={isLoading} className="bg-red-500 hover:bg-red-600">
             <Send className="mr-2 h-4 w-4" /> Send
-          </Button>
+          </Button>          
         </div>
+        {errorMessage && (
+            <div className="text-xs text-red-500 bg-red-100 p-2 rounded-lg">
+              ❌ {errorMessage}
+            </div>
+          )}
         <div className="flex w-full items-center space-x-2">
           <Input
             id="secret-input"
